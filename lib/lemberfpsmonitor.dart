@@ -27,6 +27,8 @@ class FPSMonitor extends StatefulWidget {
   /// Show Fps text values
   final bool showText;
 
+  final Function(double fps) onFpsChanged;
+
   FPSMonitor(
       {Key? key,
       this.child,
@@ -34,6 +36,7 @@ class FPSMonitor extends StatefulWidget {
       this.sampleTime = .5,
       this.maxFps = 60,
       this.isEnabled = true,
+      required this.onFpsChanged,
       this.align,
       this.showText = true})
       : super(key: key) {
@@ -104,6 +107,7 @@ class _FPSMonitorState extends State<FPSMonitor> {
           widget.maxFps.toDouble());
       _ticks = 0;
       //Add new entry, remove old ones
+      widget.onFpsChanged(_fps);
       _entries.value.add(_FpsEntry(_lastCalcTime, _fps));
       _entries.value = List.from(_entries.value)
         ..removeWhere((e) => nowMs - e.time > totalTimeMs);

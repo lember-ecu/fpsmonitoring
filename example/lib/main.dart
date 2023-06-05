@@ -9,6 +9,9 @@ void main() {
     child: FPSMonitor(
       isEnabled: true,
       align: Alignment.topRight,
+      onFpsChanged: (fps) {
+        print("fps: $fps");
+      },
       child: MaterialApp(
           debugShowCheckedModeBanner: false, home: Scaffold(body: MyApp())),
     ),
