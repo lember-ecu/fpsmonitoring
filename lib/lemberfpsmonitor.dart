@@ -7,7 +7,7 @@ import 'package:flutter/scheduler.dart';
 
 class FPSMonitor extends StatefulWidget {
   /// Toggle the stats on/off, there should be no performance cost when the widget is off.
-  final bool isEnabled;
+  final bool showFPSChart;
 
   /// Ceiling fps
   final int maxFps;
@@ -27,7 +27,14 @@ class FPSMonitor extends StatefulWidget {
   /// Show Fps text values
   final bool showText;
 
-  final Function(double fps) onFpsChanged;
+  /// Callback when fps changes
+  final Function(double fps) onFPSChanged;
+
+  /// Callback when fps is below min
+  final Function()? onFPSmin;
+
+  /// Set min fps to alert
+  final double minFPSAlert;
 
   FPSMonitor(
       {Key? key,
@@ -35,14 +42,19 @@ class FPSMonitor extends StatefulWidget {
       this.totalTime = 15,
       this.sampleTime = .5,
       this.maxFps = 60,
-      this.isEnabled = true,
-      required this.onFpsChanged,
+      this.showFPSChart = true,
+      required this.onFPSChanged,
       this.align,
+      this.minFPSAlert = 30,
+      this.onFPSmin,
       this.showText = true})
       : super(key: key) {
     assert(sampleTime > 0, "sampleTime must be > 0.");
     assert(totalTime >= sampleTime * 2,
         "totalTime must at least twice sampleTime");
+    assert(maxFps > 0, "maxFps must be > 0.");
+    assert(minFPSAlert > 0, "minFPSAlert must be > 0.");
+    assert(minFPSAlert <= maxFps, "minFPSAlert must be <= maxFps.");
   }
 
   @override
@@ -70,19 +82,8 @@ class _FPSMonitorState extends State<FPSMonitor> {
     super.initState();
     _fps = widget.maxFps.toDouble();
     _ticker = Ticker(_handleTick);
-    if (widget.isEnabled) _ticker.start();
+    _ticker.start();
     _lastCalcTime = nowMs;
-  }
-
-  @override
-  void didUpdateWidget(FPSMonitor oldWidget) {
-    final isEnabled = widget.isEnabled;
-
-    if (oldWidget.isEnabled != isEnabled) {
-      isEnabled ? _ticker.start() : _ticker.stop();
-    }
-
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -92,10 +93,6 @@ class _FPSMonitorState extends State<FPSMonitor> {
   }
 
   void _handleTick(Duration d) {
-    if (!widget.isEnabled) {
-      _lastCalcTime = nowMs;
-      return;
-    }
     // Tick
     _ticks++;
     // Calculate
@@ -107,7 +104,10 @@ class _FPSMonitorState extends State<FPSMonitor> {
           widget.maxFps.toDouble());
       _ticks = 0;
       //Add new entry, remove old ones
-      widget.onFpsChanged(_fps);
+      widget.onFPSChanged(_fps);
+      if (_fps < widget.minFPSAlert) {
+        widget.onFPSmin?.call();
+      }
       _entries.value.add(_FpsEntry(_lastCalcTime, _fps));
       _entries.value = List.from(_entries.value)
         ..removeWhere((e) => nowMs - e.time > totalTimeMs);
@@ -129,7 +129,7 @@ class _FPSMonitorState extends State<FPSMonitor> {
         );
 
     // Exit early if we're disabled
-    if (widget.isEnabled == false) {
+    if (!widget.showFPSChart) {
       return widget.child ?? const SizedBox.shrink();
     }
     // Exit early if there is no child

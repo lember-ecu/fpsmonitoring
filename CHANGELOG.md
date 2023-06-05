@@ -1,3 +1,7 @@
 ## 0.0.1
 
 * FPS MONITORING WIDGET
+
+## 0.0.2
+
+* MIN FPS ALERT

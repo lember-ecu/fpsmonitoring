@@ -7,9 +7,9 @@ void main() {
   runApp(Padding(
     padding: const EdgeInsets.only(top: 40),
     child: FPSMonitor(
-      isEnabled: true,
+      showFPSChart: false,
       align: Alignment.topRight,
-      onFpsChanged: (fps) {
+      onFPSChanged: (fps) {
         print("fps: $fps");
       },
       child: MaterialApp(
