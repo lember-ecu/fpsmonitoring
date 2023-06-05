@@ -1,6 +1,6 @@
 name: lemberfpsmonitor
 description: A Flutter package for fps monitoring.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/lember-ecu/fpsmonitoring
 
 environment:

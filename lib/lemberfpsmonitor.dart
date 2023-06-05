@@ -10,7 +10,7 @@ class FPSMonitor extends StatefulWidget {
   final bool showFPSChart;
 
   /// Ceiling fps
-  final int maxFps;
+  final int maxFPS;
 
   /// A child to be displayed under the Stats
   final Widget? child;
@@ -41,7 +41,7 @@ class FPSMonitor extends StatefulWidget {
       this.child,
       this.totalTime = 15,
       this.sampleTime = .5,
-      this.maxFps = 60,
+      this.maxFPS = 60,
       this.showFPSChart = true,
       required this.onFPSChanged,
       this.align,
@@ -52,9 +52,9 @@ class FPSMonitor extends StatefulWidget {
     assert(sampleTime > 0, "sampleTime must be > 0.");
     assert(totalTime >= sampleTime * 2,
         "totalTime must at least twice sampleTime");
-    assert(maxFps > 0, "maxFps must be > 0.");
+    assert(maxFPS > 0, "maxFps must be > 0.");
     assert(minFPSAlert > 0, "minFPSAlert must be > 0.");
-    assert(minFPSAlert <= maxFps, "minFPSAlert must be <= maxFps.");
+    assert(minFPSAlert <= maxFPS, "minFPSAlert must be <= maxFps.");
   }
 
   @override
@@ -80,7 +80,7 @@ class _FPSMonitorState extends State<FPSMonitor> {
   @override
   void initState() {
     super.initState();
-    _fps = widget.maxFps.toDouble();
+    _fps = widget.maxFPS.toDouble();
     _ticker = Ticker(_handleTick);
     _ticker.start();
     _lastCalcTime = nowMs;
@@ -101,7 +101,7 @@ class _FPSMonitorState extends State<FPSMonitor> {
       int remainder = (nowMs - _lastCalcTime - sampleTimeMs).round();
       _lastCalcTime = nowMs - remainder;
       _fps = min((_ticks * 1000 / sampleTimeMs).roundToDouble(),
-          widget.maxFps.toDouble());
+          widget.maxFPS.toDouble());
       _ticks = 0;
       //Add new entry, remove old ones
       widget.onFPSChanged(_fps);
@@ -184,9 +184,9 @@ class _FPSMonitorState extends State<FPSMonitor> {
   }
 
   Color _getColorForFps(double fps) {
-    if (fps < widget.maxFps * .5) return Colors.redAccent;
-    if (fps < widget.maxFps * .75) return Colors.orange;
-    if (fps < widget.maxFps) return Colors.yellow;
+    if (fps < widget.maxFPS * .5) return Colors.redAccent;
+    if (fps < widget.maxFPS * .75) return Colors.orange;
+    if (fps < widget.maxFPS) return Colors.yellow;
     return Colors.green;
   }
 }
