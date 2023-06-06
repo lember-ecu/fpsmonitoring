@@ -1,6 +1,5 @@
 name: lemberfpsmonitor
-description: A Flutter package for fps monitoring.
-version: 0.0.3+1
+version: 0.0.3+2
 homepage: https://github.com/lember-ecu/fpsmonitoring
 
 environment:
@@ -17,3 +16,16 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+
+description:
+  Flutter FPS Monitor is a package for monitoring FPS (Frames Per Second) performance in Flutter applications. This package provides developers with the opportunity to visually track and improve application performance. You can monitor FPS values in real-time, analyze application performance, and identify potential performance issues. By using advanced charts and data tables, you can examine FPS trends and changes, ensuring that your animations run smoothly. This package empowers Flutter developers to optimize application performance and enhance the user experience.
+
+  Features
+  - Real-time FPS monitoring
+  - Visualize FPS data with charts and data tables
+  - Analyze animation performance
+  - Identify potential performance issues
+  - Make performance improvements during development
+  - Optimize application performance to enhance user experience
+
+  This package can be easily integrated into your Flutter projects, enabling you to track your performance. By using this package, you can facilitate performance analysis and ensure that your Flutter applications run faster and smoother.
