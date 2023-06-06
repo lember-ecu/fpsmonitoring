@@ -10,7 +10,6 @@ This Flutter package allows you to monitor the FPS (Frames Per Second) performan
 - Identify and improve performance issues
 - Easy integration and usage
 
-
 ## Usage
 
 ```dart
@@ -30,8 +29,8 @@ void main() {
     ),
   ));
 }
+```
 
 ## License
 
 - This project is licensed under the MIT License. For more information, please see the [LICENSE](LICENSE) file.
-
