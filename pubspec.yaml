@@ -1,6 +1,7 @@
 name: lemberfpsmonitor
-version: 0.0.3+5
+version: 0.0.3+6
 homepage: https://github.com/lember-ecu/fpsmonitoring
+author: Enes Çağrı Ulusu <cagriulusu1@gmail.com>
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
