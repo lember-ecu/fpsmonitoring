@@ -17,5 +17,4 @@ dev_dependencies:
 
 flutter:
 
-description: |
-  A Flutter package for real-time FPS monitoring in applications. Track and analyze performance, identify issues, and optimize animations. Improve user experience with smooth-running applications. Easy integration for Flutter projects.
+description: A powerful Flutter package for real-time FPS monitoring and performance analysis in applications.
